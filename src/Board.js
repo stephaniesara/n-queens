@@ -79,12 +79,20 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var rowSum = this.get(rowIndex).reduce(function(accum, curr) {
+        return accum + curr;
+      });
+      return rowSum > 1 ? true : false;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.get('n'); i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
@@ -94,12 +102,24 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var colSum = 0;
+      this.rows().forEach(function(row) {
+        colSum += row[colIndex];
+      });
+      // for (var i = 0; i < this.get('n'); i++) {
+      //   colSum += this.rows()[i][colIndex];
+      // }
+      return colSum > 1 ? true : false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.get('n'); i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
@@ -109,7 +129,27 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var n = this.get('n');
+      // var startCol = majorDiagonalColumnIndexAtFirstRow;
+      // var startRow = 0;
+      //
+      // if (majorDiagonalColumnIndexAtFirstRow < 0) {
+      //   startCol = 0;
+      //   startRow = majorDiagonalColumnIndexAtFirstRow + n;
+      // }
+
+      var startCol = majorDiagonalColumnIndexAtFirstRow < 0 ? 0 : majorDiagonalColumnIndexAtFirstRow;
+      var startRow = majorDiagonalColumnIndexAtFirstRow < 0 ? majorDiagonalColumnIndexAtFirstRow + n : 0;
+
+      var diagSum = 0;
+
+      for (var i = startRow; i < n; i++) {
+        for (var j startCol; j < n; j++) {
+          diagSum += this.get(i)[j];
+        }
+      }
+
+      return diagSum > 1 ? true : false;
     },
 
     // test if any major diagonals on this board contain conflicts
