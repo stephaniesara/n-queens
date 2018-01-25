@@ -56,15 +56,12 @@ window._countRooksSolution = function(row, col, board, rooks, count) {
     for (var j = col; j < n; j++) {
       board.togglePiece(i, j);
       if (!board.hasColConflictAt(j)) {
-        rooks++;
-        if (rooks === n) {
-          // count++;
+        if (rooks === n - 1) {
           board.togglePiece(i, j);
           return count + 1;
         } else {
-          count = _countRooksSolution(row + 1, 0, board, rooks, count);
+          count = _countRooksSolution(i + 1, 0, board, rooks + 1, count);
         }
-        rooks--;
       }
       board.togglePiece(i, j);
     }

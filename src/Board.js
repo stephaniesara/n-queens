@@ -111,9 +111,9 @@
     hasColConflictAt: function(colIndex) {
       var colSum = 0;
       var n = this.get('n');
-      var rows = this.rows();
+      // var rows = this.rows();
       for (var i = 0; i < n; i++) {
-        colSum += rows[i][colIndex];
+        colSum += this.get(i)[colIndex];
         if (colSum > 1) {
           return true;
         }
