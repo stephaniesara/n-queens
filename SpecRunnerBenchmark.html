@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Benchmark Spec Runner</title>
+
+    <!-- library files -->
+    <script src="lib/jquery-1.8.3.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+
+    <!-- testing frameworks -->
+    <link rel="stylesheet" href="lib/mocha/mocha.css">
+    <script src="lib/mocha/mocha.js"></script>
+    <script src="lib/chai/chai.js"></script>
+    <script src="lib/sinon/sinon.js"></script>
+    <script src="node_modules/lodash/lodash.js"></script>
+    <script src="node_modules/platform/platform.js"></script>
+    <script src="node_modules/benchmark/benchmark.js"></script>
+
+    <!-- source files -->
+    <script src="src/Board.js"></script>
+    <script src="src/BoardView.js"></script>
+    <script src="src/solvers.js"></script>
+
+    <!-- tests -->
+    <script src="spec/solversBenchmarkSpec.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+  </body>
+</html>
