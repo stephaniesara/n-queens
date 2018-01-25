@@ -140,12 +140,11 @@
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(startDiag) {
       var n = this.get('n');
-      var rows = this.rows();
       var startCol = startDiag < 0 ? 0 : startDiag;
       var startRow = startDiag < 0 ? -startDiag : 0;
       var diagSum = 0;
       while(startCol < n && startRow < n) {
-        diagSum += rows[startRow][startCol];
+        diagSum += this.get(startRow)[startCol];
         if (diagSum > 1) {
           return true;
         }
@@ -174,12 +173,11 @@
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(startDiag) {
       var n = this.get('n');
-      var rows = this.rows();
       var startCol = startDiag < n ? startDiag : n - 1;
       var startRow = startDiag < n ? 0 : (startDiag - n + 1);
       var diagSum = 0;
       while (startCol >= 0 && startRow < n) {
-        diagSum += rows[startRow][startCol];
+        diagSum += this.get(startRow)[startCol];
         if (diagSum > 1) {
           return true;
         }
