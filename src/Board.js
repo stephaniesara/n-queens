@@ -13,6 +13,20 @@
         console.log('\t2. An array of arrays (a matrix). To create a populated board of size n:\n\t\t[ [%c<val>%c,%c<val>%c,%c<val>%c...], [%c<val>%c,%c<val>%c,%c<val>%c...], [%c<val>%c,%c<val>%c,%c<val>%c...] ] - Where each %c<val>%c is whatever value you want at that location on the board\n\t\t%cEXAMPLE: var board = new Board([[1,0,0],[0,1,0],[0,0,1]])', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: blue;', 'color: black;', 'color: grey;');
       } else if (params.hasOwnProperty('n')) {
         this.set(makeEmptyMatrix(this.get('n')));
+        var n = this.get('n');
+        var colConflict = (new Array(n)).fill(0);
+        this.set('colConflict', colConflict);
+        this.set('hello', 'world');
+        var majorConflict = {};
+        for (var i = -n + 1; i < n; i++) {
+          majorConflict[i] = 0;
+        }
+        this.set('majorConflict', majorConflict);
+        var minorConflict = {};
+        for (var i = 0; i < 2 * n; i++) {
+          minorConflict[i] = 0;
+        }
+        this.set('minorConflict', minorConflict);
       } else {
         this.set('n', params.length);
       }
@@ -59,6 +73,21 @@
         0 <= rowIndex && rowIndex < this.get('n') &&
         0 <= colIndex && colIndex < this.get('n')
       );
+    },
+    
+    
+    _toggleMajorMinor: function(majorKey, minorKey) {
+      (this.get('majorConflict'))[majorKey] =+ !(this.get('majorConflict'))[majorKey];
+      (this.get('minorConflict'))[minorKey] =+ !(this.get('minorConflict'))[minorKey];
+    },
+    
+    // check if there's a conflict with rook or queen at curr row and col
+    _hasConflict: function(row, col, majorKey, minorKey) {
+      if (this.type === 'rooks') {
+        return (this.get('colConflict'))[col];
+      } else {
+        return ((this.get('colConflict'))[col] || (this.get('majorConflict'))[majorKey] || (this.get('minorConflict'))[minorKey]);
+      }
     },
 
 
