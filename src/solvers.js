@@ -16,7 +16,8 @@
 window._getBoard = function(nextRow, board, target) {
   var solution = 0;
   var n = board.get('n');
-  for (var row = nextRow; row < n; row++) {
+  // for (var row = nextRow; row < n; row++) {
+  var row = nextRow;
     for (var col = 0; col < n; col++) {
       board.togglePiece(row, col);
       var majorKey = col - row;
@@ -41,9 +42,9 @@ window._getBoard = function(nextRow, board, target) {
         }
       }
       board.togglePiece(row, col);
-      
+
     }
-  }
+  // }
   return solution;
 };
 
@@ -51,7 +52,8 @@ window._getBoard = function(nextRow, board, target) {
 window._getCount = function(nextRow, board, target) {
   var solution = 0;
   var n = board.get('n');
-  for (var row = nextRow; row < n; row++) {
+  //for (var row = nextRow; row < n; row++) {
+  var row = nextRow;
     for (var col = 0; col < n; col++) {
       board.togglePiece(row, col);
       var majorKey = col - row;
@@ -74,7 +76,7 @@ window._getCount = function(nextRow, board, target) {
       }
       board.togglePiece(row, col);
     }
-  }
+//  }
   return solution;
 };
 
