@@ -1,8 +1,8 @@
 /*           _
-   ___  ___ | |_   _____ _ __ ___
-  / __|/ _ \| \ \ / / _ \ '__/ __|
-  \__ \ (_) | |\ V /  __/ |  \__ \
-  |___/\___/|_| \_/ \___|_|  |___/
+___  ___ | |_   _____ _ __ ___
+/ __|/ _ \| \ \ / / _ \ '__/ __|
+\__ \ (_) | |\ V /  __/ |  \__ \
+|___/\___/|_| \_/ \___|_|  |___/
 
 */
 
@@ -13,70 +13,64 @@
 
 
 // return a solution for finding n items of type on an nxn board
-window._getBoard = function(nextRow, board, target) {
+window._getBoard = function(row, board, target) {
   var solution = 0;
   var n = board.get('n');
-  // for (var row = nextRow; row < n; row++) {
-  var row = nextRow;
-    for (var col = 0; col < n; col++) {
-      board.togglePiece(row, col);
-      var majorKey = col - row;
-      var minorKey = col + row;
-      if (!(board._hasConflict(row, col, majorKey, minorKey))) {
-        (board.get('colConflict'))[col] = 1;
-        if (board.type === 'queens') {
-          board._toggleMajorMinor(majorKey, minorKey);
-        }
-        if (target === n - 1) {
-          return board.rows();
-        } else {
-          var nextSol = _getBoard(row + 1, board, target + 1);
-          solution = nextSol;
-          if (solution) {
-            return solution;
-          }
-        }
-        (board.get('colConflict'))[col] = 0;
-        if (board.type === 'queens') {
-          board._toggleMajorMinor(majorKey, minorKey);
+  for (var col = 0; col < n; col++) {
+    board.togglePiece(row, col);
+    var majorKey = col - row;
+    var minorKey = col + row;
+    if (!(board._hasConflict(row, col, majorKey, minorKey))) {
+      (board.get('colConflict'))[col] = 1;
+      if (board.type === 'queens') {
+        board._toggleMajorMinor(majorKey, minorKey);
+      }
+      if (target === n - 1) {
+        return board.rows();
+      } else {
+        var nextSol = _getBoard(row + 1, board, target + 1);
+        solution = nextSol;
+        if (solution) {
+          return solution;
         }
       }
-      board.togglePiece(row, col);
-
+      (board.get('colConflict'))[col] = 0;
+      if (board.type === 'queens') {
+        board._toggleMajorMinor(majorKey, minorKey);
+      }
     }
-  // }
+    board.togglePiece(row, col);
+
+  }
   return solution;
 };
 
 // return number of solutions for finding n items of type on an nxn board
-window._getCount = function(nextRow, board, target) {
+window._getCount = function(row, board, target) {
   var solution = 0;
   var n = board.get('n');
-  //for (var row = nextRow; row < n; row++) {
-  var row = nextRow;
-    for (var col = 0; col < n; col++) {
-      board.togglePiece(row, col);
-      var majorKey = col - row;
-      var minorKey = col + row;
-      if (!(board._hasConflict(row, col, majorKey, minorKey))) {
-        (board.get('colConflict'))[col] = 1;
-        if (board.type === 'queens') {
-          board._toggleMajorMinor(majorKey, minorKey);
-        }
-        if (target === n - 1) {
-          solution++;
-        } else {
-          var nextSol = _getCount(row + 1, board, target + 1);
-          solution += nextSol;
-        }
-        (board.get('colConflict'))[col] = 0;
-        if (board.type === 'queens') {
-          board._toggleMajorMinor(majorKey, minorKey);
-        }
+  for (var col = 0; col < n; col++) {
+    board.togglePiece(row, col);
+    var majorKey = col - row;
+    var minorKey = col + row;
+    if (!(board._hasConflict(row, col, majorKey, minorKey))) {
+      (board.get('colConflict'))[col] = 1;
+      if (board.type === 'queens') {
+        board._toggleMajorMinor(majorKey, minorKey);
       }
-      board.togglePiece(row, col);
+      if (target === n - 1) {
+        solution++;
+      } else {
+        var nextSol = _getCount(row + 1, board, target + 1);
+        solution += nextSol;
+      }
+      (board.get('colConflict'))[col] = 0;
+      if (board.type === 'queens') {
+        board._toggleMajorMinor(majorKey, minorKey);
+      }
     }
-//  }
+    board.togglePiece(row, col);
+  }
   return solution;
 };
 
